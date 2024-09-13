@@ -1,0 +1,10 @@
+langchain
+langchain_openai
+google-generativeai
+python-dotenv
+opencv-python
+pyaudio
+google-cloud-speech
+elevenlabs
+pydub
+twilio

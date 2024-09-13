@@ -1,0 +1,4 @@
+.venv/
+snapshots/
+.env
+clipcraft-account.json
