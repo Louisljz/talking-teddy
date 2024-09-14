@@ -2,3 +2,4 @@
 snapshots/
 .env
 clipcraft-account.json
+__pycache__/

@@ -6,5 +6,6 @@ opencv-python
 pyaudio
 google-cloud-speech
 elevenlabs
+SpeechRecognition
 pydub
 twilio
