@@ -2,4 +2,6 @@
 snapshots/
 .env
 clipcraft-account.json
+talking-teddy-service.json
+tempCodeRunnerFile.py
 __pycache__/

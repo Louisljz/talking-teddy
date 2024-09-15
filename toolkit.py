@@ -3,10 +3,13 @@ from pydub import AudioSegment
 from pydub.playback import play
 from twilio.rest import Client
 from video_utils import VisionHelper
+from dotenv import load_dotenv
+from bucket_utils import BucketUtils
 
 import os
 import uuid
 
+load_dotenv()
 
 message_client = Client(
     username=os.getenv("TWILIO_ACCOUNT_SID"), password=os.getenv("TWILIO_AUTH_TOKEN")
@@ -14,7 +17,10 @@ message_client = Client(
 
 @tool
 def analyze_vision(prompt: str, media: str) -> str:
-    """Records webcam feed for 3 seconds or takes a snapshot and analyzes the content based on the prompt. Media is either 'video' or 'photo'."""
+    """
+    Records webcam feed for 3 seconds or takes a snapshot and analyzes the content based on the prompt. 
+    Media is either 'video' or 'photo'.
+    """
     print("-------------------------")
     print(f"Instruction: {prompt}")
 
@@ -22,10 +28,12 @@ def analyze_vision(prompt: str, media: str) -> str:
         file_name = f"snapshots/videos/{uuid.uuid4()}.mp4"
 
         helper = VisionHelper(save_path=file_name)
+        bucketUtilClient = BucketUtils()
 
         print("Recording video...")
         helper.record_video()
         print("Analyzing video...")
+        bucketUtilClient.upload_blob(file_name, file_name)
         response = helper.send_video_to_gemini(prompt)
         print(f"Activity: {response}")
         print("-------------------------")
@@ -34,10 +42,12 @@ def analyze_vision(prompt: str, media: str) -> str:
         file_name = f"snapshots/photos/{uuid.uuid4()}.jpg"
 
         helper = VisionHelper(save_path=file_name)
+        bucketUtilClient = BucketUtils()
 
         print("Snapshot taken...")
         helper.take_snapshot()
         print("Analyzing photo...")
+        bucketUtilClient.upload_blob(file_name, file_name)
         response = helper.send_image_to_gemini(prompt)
         print(f"Activity: {response}")
         print("-------------------------")
