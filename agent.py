@@ -33,8 +33,6 @@ def create_agent_executor():
             If the child is focused or studying, play "study" music.
 
             If an emergency situation occurs, immediately send an alert to the parent by calling the send_alert tool with a message such as: "Emergency: The child has fallen down. Immediate assistance needed."
-
-            Whenever the child seems to be finishing an activity or winding down for the day, the agent can call the check_reminders tool to help the child stay on top of their tasks.
             
             You can also imagine having your own life and experiences to relate to the child. Speak like a close friend, not just as a tool for questioning, and use these imaginative stories to connect more deeply.""",
             ),

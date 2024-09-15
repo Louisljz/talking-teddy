@@ -77,16 +77,4 @@ def send_alert(message: str) -> str:
     return "Alert sent to parent!"
 
 
-@tool
-def check_reminders(placeholder: str) -> str:
-    """gets the latest reminders set by parent, input is empty string"""
-    # write an API call to get reminders from database
-    reminders = [
-        "Remember to pick up your toys when you're done playing",
-        "Brush your teeth before bed",
-        "Don't forget to do your science homework",
-    ]
-    return reminders
-
-
-TOOLS = [analyze_vision, play_music, send_alert, check_reminders]
+TOOLS = [analyze_vision, play_music, send_alert]

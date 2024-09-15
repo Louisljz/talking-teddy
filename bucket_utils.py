@@ -6,12 +6,12 @@ import os
 
 class BucketUtils:
     def __init__(self):
-        credentials = Credentials.from_service_account_file('talking-teddy-service.json')
+        credentials = Credentials.from_service_account_file("service-account.json")
         self.client = storage.Client(credentials=credentials)
         self.supabase = create_client(os.environ.get("SUPABASE_URL"), os.environ.get("SUPABASE_KEY"))
 
     def upload_blob(self, source_file_name, destination_blob_name):
-        bucket_name = "talking_teddy"
+        bucket_name = "talking-teddy"
         bucket = self.client.get_bucket(bucket_name)
         blob = bucket.blob(destination_blob_name)
 
@@ -21,16 +21,10 @@ class BucketUtils:
         # Generate signed URL (valid for 1 hour)
         url = blob.generate_signed_url(expiration=datetime.timedelta(hours=1))
         print(f"File {source_file_name} uploaded to {destination_blob_name}.")
-        
-        
+
         snapshotType = 0
-        
+
         if destination_blob_name.startswith("snapshots/videos"):
             snapshotType = 1
-        
-        self.supabase.table("snapshot").update({
-            "link": url,
-            "type": snapshotType
-        }).eq("id", 1).execute()
-        
-    
+
+        self.supabase.table("snapshot").insert({"link": url, "type": snapshotType}).execute()

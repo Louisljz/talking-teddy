@@ -2,7 +2,7 @@ import speech_recognition as sr
 from elevenlabs.client import ElevenLabs
 from elevenlabs import play
 from agent import create_agent_executor, manage_memory
-from langchain_core.messages import AIMessage, HumanMessage
+from langchain_core.messages import AIMessage
 from supabase import create_client
 
 from dotenv import load_dotenv
@@ -27,12 +27,12 @@ agent_executor = create_agent_executor()
 
 
 def get_speech_input():
-    with sr.Microphone(device_index=0) as source:
+    with sr.Microphone(device_index=2) as source:
         print("Listening...")
         audio = recognizer.listen(source)
     try:
         return recognizer.recognize_google_cloud(
-            audio, credentials_json="clipcraft-account.json"
+            audio, credentials_json="service-account.json"
         )
     except sr.UnknownValueError:
         return "Sorry, I didn't understand that."
@@ -136,14 +136,3 @@ while True:
 
     # Speak AI response
     speak(result["output"])
-    
-    
-
-
-    
-    
-    
-    
-    
-    
-    

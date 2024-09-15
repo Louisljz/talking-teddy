@@ -1,7 +1,6 @@
 .venv/
 snapshots/
 .env
-clipcraft-account.json
-talking-teddy-service.json
+service-account.json
 tempCodeRunnerFile.py
 __pycache__/
